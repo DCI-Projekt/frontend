@@ -1,11 +1,9 @@
 # To-do Liste
 - Popup Fenster wenn man auf Kalendertag klickt
-  - Name des Events
-  - Startzeit
-  - Dauer des Events
-  - Teilnehmer Anzahl
-  - Für User checkbox zum Teilnehmen
-  - Für Admin ein bearbeiten button
+  - Liste der Events -> Link zum weiterleiten
+  - User: Eventdetails mit zu und absagen
+  - Admin: Eventdetails mit bearbeiten Button
+  - Admin: Bearbeitungsform mit speichern Button 
 
 - Tablet responsive
   - Wenn quer kein Burger Menü
