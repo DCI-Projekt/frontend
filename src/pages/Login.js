@@ -3,21 +3,27 @@ import axios from "axios";
 
 const Login = () => {
     const [userLogin, setUserLogin] = useState({
-      email: "",
+      login: "",
       password: "",
     });
+
+    const [message, setMessage] = useState("");
 
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const data = await axios.post(
-          "",
-          userLogin
+
+        const response = await axios.post(
+          'http://localhost:8080/auth/login',
+          userLogin,
+          {withCredentials: true}
         );
-        console.log(data);
-        localStorage.setItem("token", data.data.token);
+        setMessage(response.data.message)
+
+
+        // localStorage.setItem("token", data.data.token);
       } catch (error) {
-        console.log(error);
+        setMessage(error.response.data)
       }
     };
 
@@ -26,11 +32,11 @@ const Login = () => {
         <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
-          type="email"
-          name="email"
-          placeholder="Email"
+          type="text"
+          name="login"
+          placeholder="Email or Username"
           onChange={(e) =>
-            setUserLogin({ ...userLogin, email: e.target.value })
+            setUserLogin({ ...userLogin, login: e.target.value })
           }
         />
         <input
@@ -42,6 +48,7 @@ const Login = () => {
           }
         />
         <input className="login-button" type="submit" value="Login" />
+        <p>{message}</p>
       </form>
     </div>
   );

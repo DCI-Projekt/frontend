@@ -1,18 +1,50 @@
+import axios from "axios";
+import { useState } from "react";
+
 const EventErstellen = () => {
-  // const { user, setUser } = useContext(UserContext);
-  // const [message, setMessage] = useState("");
+
+    const [title, setTitle] = useState("");
+    const [beginning, setBeginning] = useState("");
+    const [start, setStart] = useState("");
+    const [end, setEnd] = useState("");
+    const [location, setLocation] = useState("");
+    const [description, setDescription] = useState("");
+ 
+  const [message, setMessage] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   const data = await axios.post("", user);
-    //   if (data.data.msg) {
-    //     setMessage(data.data.msg);
-    //   }
-    // } catch (error) {
-    //   if (error.response.data.error) {
-    //     setMessage(error.response.data.error.message);
-    //   }
-    // }
+
+    let jetzt = new Date(`1995-12-17T${start}:00`).getTime()
+    let später = new Date(`1995-12-17T${end}:00`).getTime()
+
+    let dauer = später-jetzt
+
+
+    let newEvent = {
+      title: title,
+      beginning: beginning,
+      duration: new Date(dauer).getHours(),
+      location: location,
+      description: description
+    }
+      console.log("🚀 ~ file: EventErstellen.js:30 ~ handleSubmit ~ beginning:", beginning)
+
+
+    try {
+
+      let response = await axios.post('http://localhost:8080/protected/events', newEvent, {
+        withCredentials: true
+      })
+      
+      console.log(response);
+      
+    } catch (error) {
+      console.log("🚀 ~ file: EventErstellen.js:43 ~ handleSubmit ~ error:", error)
+      
+    }
+
+
   };
   return (
     <div>
@@ -22,36 +54,36 @@ const EventErstellen = () => {
           type="text"
           name="eventname"
           placeholder="Event Name"
-          // onChange={(e) => setUser({ ...user, userName: e.target.value })}
+          onChange={(e) => setTitle( e.target.value )}
         />
         <label>Datum</label>
         <input
           type="date"
           name="date"
-          // onChange={(e) => setUser({ ...user, email: e.target.value })}
+          onChange={(e) => setBeginning( e.target.value )}
         />
         <label>von</label>
         <input
           type="time"
           name="start"
-          // onChange={(e) => setUser({ ...user, email: e.target.value })}
+          onChange={(e) => setStart( e.target.value )}
         />
         <label>bis</label>
         <input
           type="time"
           name="end"
-          // onChange={(e) => setUser({ ...user, email: e.target.value })}
+          onChange={(e) => setEnd( e.target.value )}
         />
         <label>Veranstaltungsort</label>
         <input
           type="text"
           name="ort"
           placeholder="Adresse"
-          // onChange={(e) => setUser({ ...user, userName: e.target.value })}
+          onChange={(e) => setLocation( e.target.value )}
         />
-        <textarea placeholder="Event Beschreibung" />
+        <textarea onChange={(e) => setDescription(e.target.value)} placeholder="Event Beschreibung" />
         <input className="register-button" type="submit" value="Erstellen" />
-        {/* <p>{message}</p> */}
+        <p>{message}</p>
       </form>
     </div>
   );

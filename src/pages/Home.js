@@ -1,9 +1,25 @@
 import Calendar from "react-calendar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Tagesansicht from "../components/TagesAnsicht";
 // import "react-calendar/dist/Calendar.css";
 
 const Home = () => {
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(()=> {
+    if(loggedIn){ 
+      try {
+        
+      } catch (error) {
+        
+      }
+    }
+  },[loggedIn])
+
+
   const [value, onChange] = useState(new Date());
+  console.log("🚀 ~ file: Home.js:7 ~ Home ~ value:", value)
   const [test, setTest] = useState(false);
 
   const popUpOpen = () => {
@@ -13,6 +29,7 @@ const Home = () => {
     setTest(false);
   };
 
+
   return (
     <div>
       <h2>Kalender</h2>
@@ -21,7 +38,7 @@ const Home = () => {
       </div>
       {test && (
         <div className="day">
-          hi<button onClick={popUpClose}>X</button>
+          <Tagesansicht date={value} /><button onClick={popUpClose}>X</button>
         </div>
       )}
     </div>
