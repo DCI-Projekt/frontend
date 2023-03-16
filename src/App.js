@@ -7,6 +7,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+      
         <Layout>
           <Routes>
             {routes.map((route) => {

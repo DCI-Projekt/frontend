@@ -11,6 +11,15 @@
   - kein Burger Menü
 
 
+  -------------------------------------
+
+  was findet an einem speziellen Tag statt?
+
+  Tages gibt Info " keine events " oder eine Liste mit events für den tag aus
+
+  EventDetailansicht - 
+
+
 
 ### User
 - Meine Termine unter dem Kalender auflisten (Bonus)

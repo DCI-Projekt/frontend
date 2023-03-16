@@ -10,10 +10,10 @@ const EventErstellen = () => {
     const [location, setLocation] = useState("");
     const [description, setDescription] = useState("");
  
-  const [message, setMessage] = useState("");
+    const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+      e.preventDefault();
 
     let jetzt = new Date(`1995-12-17T${start}:00`).getTime()
     let später = new Date(`1995-12-17T${end}:00`).getTime()

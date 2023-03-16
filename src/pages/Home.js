@@ -3,24 +3,40 @@ import React, { useEffect, useState } from "react";
 import Tagesansicht from "../components/TagesAnsicht";
 // import "react-calendar/dist/Calendar.css";
 
+import * as eventProvider from '../service/eventProvider'
+
 const Home = () => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(()=> {
-    if(loggedIn){ 
-      try {
-        
-      } catch (error) {
-        
-      }
-    }
-  },[loggedIn])
+  // const [eventDays, setEventDays] = useState([])
+  // const [event, setEvents] = useState([])
 
+  const [allEvents, setAllEvents] = useState([])
+  const [dayEvents, setDayEvents] = useState([])
 
   const [value, onChange] = useState(new Date());
-  console.log("🚀 ~ file: Home.js:7 ~ Home ~ value:", value)
   const [test, setTest] = useState(false);
+
+
+useEffect(()=> {
+  const fetchData = async () => {
+    const data = await eventProvider.getEventsByDay();
+    setAllEvents(data)
+  }
+  fetchData()
+    .catch(console.error);
+},[])
+
+
+useEffect(() => {
+  let dayEvents = allEvents.filter((event) => {
+      return new Date(event.beginning).toDateString() === value.toDateString();
+  });
+  setDayEvents(dayEvents)
+},[value]);
+
+
 
   const popUpOpen = () => {
     setTest(true);
@@ -38,7 +54,7 @@ const Home = () => {
       </div>
       {test && (
         <div className="day">
-          <Tagesansicht date={value} /><button onClick={popUpClose}>X</button>
+          <Tagesansicht date={dayEvents} /><button onClick={popUpClose}>X</button>
         </div>
       )}
     </div>
