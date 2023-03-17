@@ -1,6 +1,6 @@
 
 
-function Tagesansicht({date}){
+function DayView({date}){
     console.log("🚀 ~ file: TagesAnsicht.js:4 ~ Tagesansicht ~ date:", date)
 
 
@@ -18,4 +18,4 @@ function Tagesansicht({date}){
 
 }
 
-export default Tagesansicht;
+export default DayView;

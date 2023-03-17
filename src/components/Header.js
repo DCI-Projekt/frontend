@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <nav role="navigation">
       <div id="menuToggle">
-        <input checked={show} onClick={handleSth} type="checkbox" />
+        <input defaultChecked={show} onClick={handleSth} type="checkbox" />
         <span></span>
         <span></span>
         <span></span>

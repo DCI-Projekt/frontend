@@ -282,6 +282,7 @@ textarea {
   padding: 2em 0.5em;
 }
 .react-calendar__tile {
+    
   max-width: 100%;
   padding: 10px 10px;
   background: none;
@@ -318,6 +319,16 @@ textarea {
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
   background: #1087ff;
+}
+
+.marked{
+    margin: auto;
+
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #006edc ; 
+    color: 006edc;
 }
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #e6e6e6;

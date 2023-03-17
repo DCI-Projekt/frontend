@@ -1,6 +1,6 @@
 
 
-function Eventansicht(date){
+function EventAnsicht(date){
     console.log("🚀 ~ file: TagesAnsicht.js:4 ~ Tagesansicht ~ date:", {date})
     
     
@@ -8,9 +8,9 @@ function Eventansicht(date){
     
     
     
-        return(
-            <></>
-        );
-    }
+    return(
+        <></>
+    );
+}
     
-    export default Eventansicht;
+export default EventAnsicht;
