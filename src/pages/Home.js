@@ -6,10 +6,14 @@ import { useContext } from "react";
 import { UserContext } from "../App";
 
 import * as eventProvider from '../service/eventProvider'
+import { userStatus } from '../service/checkStatus.js'
 import { useLocation } from "react-router-dom";
 
 const Home = () => {
   let location = useLocation();
+  let status = useContext(UserContext)
+
+  const [verifiedUser, setVerifiedUser] = useState(status.success)
 
   const [dateList, setDateList] = useState([]);
   const [allEvents, setAllEvents] = useState([])
@@ -22,11 +26,25 @@ const Home = () => {
   
 
   useEffect(()=> {
+
     console.log(location.state);
 
-    if (location.state) {
 
-      const fetchData = async () => {
+
+    const fetchStatus = async () => {
+        let newStatus = await userStatus()
+        console.log("🚀 ~ file: Home.js:36 ~ fetchStatus ~ newStatus:", newStatus)
+        setVerifiedUser(newStatus.success)
+
+    }
+    fetchStatus()
+        .catch(console.error);
+  
+
+
+    if (verifiedUser) {
+
+    const fetchData = async () => {
         const data = await eventProvider.getAllEvents();
         setAllEvents(data)
   
@@ -35,10 +53,10 @@ const Home = () => {
             let date = new Date(day);
             date.setDate(date.getDate() - 1)
             return date;
-        }) 
+        });
         setDateList(eventDates)
-      }
-      fetchData()
+    }
+    fetchData()
         .catch(console.error);
     }
 
@@ -78,7 +96,7 @@ const tileContent = ({ date, view }) => {
       <div className="kalender">
         <Calendar onClickDay={popUpOpen} tileContent={tileContent} onChange={onChange} value={value} />
       </div>
-      {showDayView && (
+      {(showDayView && verifiedUser) && (
         <div className="day">
           <DayView date={dayEvents} /><button onClick={popUpClose}>X</button>
         </div>

@@ -5,10 +5,11 @@ export async function userStatus(){
         let response = await axios.get('http://localhost:8080/auth/status',{
             withCredentials: true
         })
-        console.log(response.data);
+        if(!response.data) response.data = {success: false, message: 'Token missing!'}
+        console.log("🚀 ~ file: checkStatus.js:9 ~ userStatus ~ response.data:", response.data)
         return response.data;
     } catch (error) {
-        console.log(error.response.data)
+        if(!error.response.data) error.response.data = {success: false, message: 'Token missing!'}
         return error.response.data
     }
 }
