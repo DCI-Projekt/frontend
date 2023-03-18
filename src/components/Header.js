@@ -8,6 +8,8 @@ const Header = () => {
 
   let location = useLocation()
   let isNotHome = (location.pathname !== '/')
+  let isNotLogin = (location.pathname !== '/login')
+  let isNotRegister = (location.pathname !== '/register')
 
   const [show, setShow] = useState(false);
 
@@ -19,18 +21,27 @@ const Header = () => {
     else setShow(!show)
   };
 
-  let isAdmin = (status.message === 'admin')
-  let createEvent = isAdmin ? 
-  (<NavLink to="/erstellen">
-    <li onClick={handleSth}>Event erstellen</li>
-  </NavLink>) 
-  : '';
+let isAdmin = (status.message === 'admin')
+let createEvent = isAdmin ? 
+(<NavLink to="/erstellen">
+  <li onClick={handleSth}>Event erstellen</li>
+</NavLink>) 
+: '';
 
-  let showHomeNav = isNotHome ? 
-  (<NavLink to="/">
-    <li onClick={handleSth}>Home</li>
-  </NavLink>) : '';
+let showHomePath = isNotHome ? 
+(<NavLink to="/">
+  <li onClick={handleSth}>Home</li>
+</NavLink>) : '';
 
+let showLoginPath = isNotLogin ? 
+(<NavLink to="/login">
+<li onClick={handleSth}>Login</li>
+</NavLink>) : '';
+
+let showRegisterPath = isNotRegister ? 
+(<NavLink to="/register">
+<li onClick={handleSth}>Register</li>
+</NavLink>) : '';
 
   return (
     <nav role="navigation">
@@ -40,13 +51,9 @@ const Header = () => {
         <span></span>
         <span></span>
         <ul id="menu">
-          {showHomeNav}
-          <NavLink to="/register">
-            <li onClick={handleSth}>Register</li>
-          </NavLink>
-          <NavLink to="/login">
-            <li onClick={handleSth}>Login</li>
-          </NavLink>
+          {showHomePath}
+          {showRegisterPath}
+          {showLoginPath}
           {createEvent}
         </ul>
       </div>

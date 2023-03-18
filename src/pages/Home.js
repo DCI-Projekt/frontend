@@ -27,8 +27,6 @@ const Home = () => {
 
   useEffect(()=> {
 
-    console.log(location.state);
-
 
 
     const fetchStatus = async () => {
@@ -88,17 +86,20 @@ const tileContent = ({ date, view }) => {
 
   let showDayView = (showDay)
 
-  return (
+// let dayView = dayEvents.map(events => {
+//     return <DayView key={dayEvents._id} data={events} closeViewCallback={popUpClose}/>
+// })
 
-    
+return (
     <div>
       <h2>Kalender</h2>
       <div className="kalender">
         <Calendar onClickDay={popUpOpen} tileContent={tileContent} onChange={onChange} value={value} />
       </div>
-      {(showDayView && verifiedUser) && (
+      {(showDayView ) && (
         <div className="day">
-          <DayView date={dayEvents} /><button onClick={popUpClose}>X</button>
+            {/* {dayView} */}
+          <DayView events={dayEvents} /><button onClick={popUpClose}>X</button>
         </div>
       )}
     </div>

@@ -1,19 +1,25 @@
+import { useNavigate } from "react-router-dom";
 
 
-function DayView({date}){
-    console.log("🚀 ~ file: TagesAnsicht.js:4 ~ Tagesansicht ~ date:", date)
+function DayView({events}){
+    console.log("🚀 ~ file: TagesAnsicht.js:4 ~ Tagesansicht ~ date:", events)
 
 
 
-//     //todo hier wird durch die events gemappt, die an selbem Tag
+    const navigate = useNavigate();
+    const handleClick = (id) => {
+        navigate(`/events/${id}`, {})
+    }
 
-    let temp = date.map((evt) => {
-        return <p>{evt.title}</p>
-    })
+
+
 
 
     return(
-        <>{temp}</>
+        <a key={events.id} onClick={() => handleClick(events.id)}>
+            
+            {/* <button onClick={popUpClose}>X</button> */}
+        </a>
     );
 
 }
