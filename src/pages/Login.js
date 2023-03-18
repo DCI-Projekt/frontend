@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { userStatus } from "../service/checkStatus";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
     const [userLogin, setUserLogin] = useState({
       login: "",
       password: "",
@@ -18,6 +21,8 @@ const Login = () => {
           userLogin,
           {withCredentials: true}
         );
+        
+        navigate("/", {state: await userStatus()})
         setMessage(response.data.message)
 
 

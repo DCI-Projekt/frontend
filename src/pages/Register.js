@@ -2,8 +2,11 @@
 // import UserContext from "../context/UserContext";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
+
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -21,6 +24,7 @@ const handleSubmit = async (e) => {
 
     try {
       const response = await axios.post('http://localhost:8080/auth/register', newUser);
+      //navigate('/login',{})
       setMessage(response.data)
 
     } catch (error) {
