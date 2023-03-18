@@ -96,7 +96,7 @@ const tileContent = ({ date, view }) => {
       <div className="kalender">
         <Calendar onClickDay={popUpOpen} tileContent={tileContent} onChange={onChange} value={value} />
       </div>
-      {(showDayView && verifiedUser) && (
+      {(showDayView) && (
         <div className="day">
           <DayView date={dayEvents} /><button onClick={popUpClose}>X</button>
         </div>

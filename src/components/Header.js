@@ -1,36 +1,56 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from '../App'
+import { UserContext } from "../App";
 
 const Header = () => {
-  let status = useContext(UserContext)
+  let status = useContext(UserContext);
 
-  let location = useLocation()
-  let isNotHome = (location.pathname !== '/')
+  let location = useLocation();
+  let isNotHome = location.pathname !== "/";
+  let isAtLogin = location.pathname !== "/login";
+  let isAtRegister = location.pathname !== "/register";
 
   const [show, setShow] = useState(false);
 
-  const handleSth = (e)=> {
-
-    if(e.target.value === 0) {
-      setShow(false)
-    }
-    else setShow(!show)
+  const handleSth = (e) => {
+    if (e.target.value === 0) {
+      setShow(false);
+    } else setShow(!show);
   };
 
-  let isAdmin = (status.message === 'admin')
-  let createEvent = isAdmin ? 
-  (<NavLink to="/erstellen">
-    <li onClick={handleSth}>Event erstellen</li>
-  </NavLink>) 
-  : '';
+  let isAdmin = status.message === "admin";
+  let createEvent = isAdmin ? (
+    <NavLink to="/erstellen">
+      <li onClick={handleSth}>Event erstellen</li>
+    </NavLink>
+  ) : (
+    ""
+  );
 
-  let showHomeNav = isNotHome ? 
-  (<NavLink to="/">
-    <li onClick={handleSth}>Home</li>
-  </NavLink>) : '';
+  let showHomeNav = isNotHome ? (
+    <NavLink to="/">
+      <li onClick={handleSth}>Home</li>
+    </NavLink>
+  ) : (
+    ""
+  );
 
+  let showLoginPath = isAtLogin ? (
+    <NavLink to="/login">
+      <li onClick={handleSth}>Login</li>
+    </NavLink>
+  ) : (
+    ""
+  );
+
+  let showRegisterPath = isAtRegister ? (
+    <NavLink to="/register">
+      <li onClick={handleSth}>Register</li>
+    </NavLink>
+  ) : (
+    ""
+  );
 
   return (
     <nav role="navigation">
@@ -41,14 +61,16 @@ const Header = () => {
         <span></span>
         <ul id="menu">
           {showHomeNav}
-          <NavLink to="/register">
-            <li onClick={handleSth}>Register</li>
-          </NavLink>
-          <NavLink to="/login">
-            <li onClick={handleSth}>Login</li>
-          </NavLink>
+          {showRegisterPath}
+          {showLoginPath}
           {createEvent}
         </ul>
+      </div>
+      <div className="navbar-desktop">
+        {showHomeNav}
+        {showRegisterPath}
+        {showLoginPath}
+        {createEvent}
       </div>
     </nav>
   );
