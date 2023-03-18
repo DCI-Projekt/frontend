@@ -47,7 +47,7 @@ const handleSubmit = async (e) => {
 
   };
   return (
-    <div>
+    <div className="event-erstellen">
       <h2>Event Erstellen</h2>
       <form onSubmit={handleSubmit}>
         <input

@@ -9,6 +9,10 @@ nav {
   height: 70px;
 }
 
+.navbar-desktop {
+  display: none;
+}
+
 #menuToggle {
   display: block;
   padding: 1.5rem;
@@ -133,6 +137,16 @@ form {
   flex-direction: column;
   padding: 3rem 4rem;
   align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.login,
+.register,
+.event-erstellen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h2 {
@@ -203,11 +217,18 @@ textarea {
 /* kalender style ------------------------------------------------------------ */
 
 .react-calendar {
-  width: 350px;
-  max-width: 100%;
+  width: 100%;
+  min-width: 350px;
+  max-width: 600px;
   background: white;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 350px;
+  max-height: 600px;
+  height: 100%;
 }
 .react-calendar--doubleView {
   width: 700px;
@@ -243,6 +264,8 @@ textarea {
   display: flex;
   height: 44px;
   margin-bottom: 1em;
+  width: 100%;
+  max-width: 400px;
 }
 .react-calendar__navigation button {
   min-width: 44px;
@@ -282,13 +305,17 @@ textarea {
   padding: 2em 0.5em;
 }
 .react-calendar__tile {
-    
+  height: 60px !important;
   max-width: 100%;
   padding: 10px 10px;
   background: none;
   text-align: center;
   line-height: 16px;
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .react-calendar__tile:disabled {
   background-color: #f0f0f0;
@@ -297,7 +324,13 @@ textarea {
 .react-calendar__tile:enabled:focus {
   background-color: #e6e6e6;
 }
-.react-calendar__tile--now {
+.react-calendar__tile--now abbr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   background: #ff5656;
   color: white;
 }
@@ -308,27 +341,49 @@ textarea {
 .react-calendar__tile--hasActive {
   background: #76baff;
 }
-.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile--hasActive:enabled:hover {
+  background: #a9d4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+}
 .react-calendar__tile--hasActive:enabled:focus {
   background: #a9d4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
 }
-.react-calendar__tile--active {
-  background: #006edc;
+.react-calendar__tile--active abbr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #006edc;
   color: white;
 }
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #1087ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
 }
 
-.marked{
-    margin: auto;
+.marked {
+  margin: auto;
 
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #006edc ; 
-    color: 006edc;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #006edc;
+  color: 006edc;
 }
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #e6e6e6;
@@ -337,4 +392,33 @@ textarea {
 abbr[title] {
   text-decoration: none;
   font-size: 0.7rem;
+}
+
+@media screen and (min-width: 1100px) {
+  #menuToggle {
+    display: none;
+  }
+  .navbar-desktop {
+    display: flex;
+    height: 100%;
+  }
+  .navbar-desktop a li {
+    list-style-type: none;
+    padding: 5px;
+  }
+  .navbar-desktop a {
+    text-decoration: none;
+    margin-left: 2rem;
+    color: #edf2f6;
+    display: flex;
+    align-items: center;
+  }
+  .navbar-desktop a li:hover {
+    border-bottom: 3px solid #edf2f6;
+  }
+  .register,
+  .login,
+  .event-erstellen {
+    margin-top: 5rem;
+  }
 }

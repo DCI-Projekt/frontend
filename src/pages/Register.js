@@ -36,7 +36,7 @@ const handleSubmit = async (e) => {
 };
 
   return (
-    <div>
+    <div className="register">
       <h2>Account erstellen</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -58,7 +58,7 @@ const handleSubmit = async (e) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <input className="register-button" type="submit" value="Registrieren" />
-         <p>{message}</p>
+        <p>{message}</p>
       </form>
     </div>
   );
