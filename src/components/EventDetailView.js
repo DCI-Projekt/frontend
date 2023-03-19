@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { getEventById } from "../service/eventProvider";
+import { getEventById, attendToEvent } from "../service/eventProvider";
+
 
 function EventDetailView() {
   const { id } = useParams();
 
   const [title, setTitle] = useState("");
-  const [beginning, setBeginning] = useState("");
+  const [date, setDate] = useState("");
+  const [start, setStart] = useState("");
   const [duration, setDuration] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
-  const [participants, setParticipants] = useState([]);
   const [amountOfParticipants, setAmountOfParticipants] = useState("");
 
   useEffect(() => {
@@ -19,14 +20,20 @@ function EventDetailView() {
       console.log(event);
 
       setTitle(event.title);
-      setBeginning(event.beginning);
+      setDate(event.beginning);
+      setStart(event.start)
       setDuration(event.duration);
       setDescription(event.description);
       setLocation(event.location);
-      setParticipants(event.participants);
       setAmountOfParticipants(event.participants.length);
+
     })();
   }, [id]);
+
+  const handleAttendToEvent = async ()=>{
+    let response = await attendToEvent(id);
+    console.log("🚀 ~ file: EventDetailView.js:36 ~ handleAttendToEvent ~ response:", response)
+  }
 
   return (
     <div className="detail-view">
@@ -35,13 +42,17 @@ function EventDetailView() {
         <p>
           <span>Datum:</span>
           <span>
-            {beginning.slice(8, 10)}.{beginning.slice(5, 7)}.
-            {beginning.slice(0, 4)}
+            {date.slice(8, 10)}.{date.slice(5, 7)}.
+            {date.slice(0, 4)}
           </span>
         </p>
         <p>
+          <span>Uhrzeit:</span>
+          <span>{start} Uhr</span>
+        </p>
+        <p>
           <span>Dauer:</span>
-          <span>{duration}h</span>
+          <span>ca. {duration} Stunden </span>
         </p>
         <p>
           Eventbeschreibung: <br />
@@ -58,7 +69,7 @@ function EventDetailView() {
           <span>Teilnehmer:</span>
           <span>{amountOfParticipants}</span>
         </p>
-        <button>Teilnehmen</button>
+        <button onClick={handleAttendToEvent} >Teilnehmen</button>
         <NavLink to="/">Zurück zum Kalender</NavLink>
       </div>
     </div>

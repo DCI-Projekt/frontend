@@ -11,7 +11,7 @@ function DayView({ events }) {
   let temp = events.map((event) => {
       return (
         <a key={event._id} onClick={() => handleClick(event._id)}>
-          <h3 className="event-title">{event.title}</h3>
+          <h3 className="event-title">{event.title} {event.start}</h3>
         </a>
       );
   });

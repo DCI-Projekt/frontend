@@ -1,7 +1,6 @@
 import axios from "axios";
 
 
-
 export async function getAllEvents(){
 
     try {
@@ -13,7 +12,6 @@ export async function getAllEvents(){
         console.log(error)
         
     }
-
 }
 
 
@@ -31,4 +29,17 @@ export async function getEventById(id){
         
     }
 
+}
+
+export async function attendToEvent(eventId){
+
+    try {
+        let response = await axios.get(`http://localhost:8080/auth/events/attend/${eventId}`,{
+            withCredentials: true
+        })
+        return response.data;
+    } catch (error) {
+        console.log(error)
+        
+    }
 }

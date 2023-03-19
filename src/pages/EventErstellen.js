@@ -20,32 +20,38 @@ const handleSubmit = async (e) => {
 
     let dauer = später-jetzt
 
-
     let newEvent = {
       title: title,
       beginning: beginning,
+      start: start,
+      end: end,
       duration: new Date(dauer).getHours(),
       location: location,
       description: description
     }
-      console.log("🚀 ~ file: EventErstellen.js:30 ~ handleSubmit ~ beginning:", beginning)
-
-
     try {
 
       let response = await axios.post('http://localhost:8080/protected/events', newEvent, {
         withCredentials: true
       })
-      
+      setMessage('Event erfolgreich erstellt!')
       console.log(response);
       
     } catch (error) {
       console.log("🚀 ~ file: EventErstellen.js:43 ~ handleSubmit ~ error:", error)
-      
+      setMessage('Eventerstellung nicht erfolgreich - Bitte Eingabe prüfen!')
+
     }
 
-
+    setTitle("");
+    setBeginning("");
+    setStart("");
+    setEnd("");
+    setLocation("");
+    setDescription("");
   };
+
+
   return (
     <div className="event-erstellen">
       <h2>Event Erstellen</h2>
@@ -55,24 +61,30 @@ const handleSubmit = async (e) => {
           name="eventname"
           placeholder="Event Name"
           onChange={(e) => setTitle( e.target.value )}
+          value={title}
         />
         <label>Datum</label>
         <input
           type="date"
           name="date"
           onChange={(e) => setBeginning( e.target.value )}
+          value={beginning}
         />
         <label>von</label>
         <input
           type="time"
           name="start"
           onChange={(e) => setStart( e.target.value )}
+          value={start}
+
         />
         <label>bis</label>
         <input
           type="time"
           name="end"
           onChange={(e) => setEnd( e.target.value )}
+          value={end}
+
         />
         <label>Veranstaltungsort</label>
         <input
@@ -80,9 +92,10 @@ const handleSubmit = async (e) => {
           name="ort"
           placeholder="Adresse"
           onChange={(e) => setLocation( e.target.value )}
+          value={location}
         />
-        <textarea onChange={(e) => setDescription(e.target.value)} placeholder="Event Beschreibung" />
-        <input className="register-button" type="submit" value="Erstellen" />
+        <textarea onChange={(e) => setDescription(e.target.value)} placeholder="Event Beschreibung" value={description}/>
+        <button className="register-button" type="submit" >Erstellen</button>
         <p>{message}</p>
       </form>
     </div>
