@@ -247,7 +247,7 @@ textarea {
 .details button {
   width: fit-content;
   margin-bottom: 3rem;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .details p {
@@ -257,6 +257,41 @@ textarea {
   font-size: 1.2rem;
   border-bottom: 2px solid #edf2f6;
   padding-bottom: 5px;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kalender-infos {
+  width: 100%;
+  min-width: 350px;
+  max-width: 600px;
+}
+
+.kalender-infos p {
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
+  margin-bottom: 1rem;
+  font-size: .8rem;
+}
+
+.punkt {
+  min-width: 10px;
+  min-height: 10px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.rot {
+  background-color: #ff5656;
+}
+
+.blau {
+  background-color: #006edc;
 }
 
 /* kalender style ------------------------------------------------------------ */
@@ -275,6 +310,7 @@ textarea {
   max-height: 600px;
   height: 100%;
   padding: 1.5rem;
+  margin-bottom: 5rem;
 }
 .react-calendar--doubleView {
   width: 700px;

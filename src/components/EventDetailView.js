@@ -42,8 +42,7 @@ function EventDetailView() {
         <p>
           <span>Datum:</span>
           <span>
-            {date.slice(8, 10)}.{date.slice(5, 7)}.
-            {date.slice(0, 4)}
+            {date.slice(8, 10)}.{date.slice(5, 7)}.{date.slice(0, 4)}
           </span>
         </p>
         <p>
@@ -69,7 +68,7 @@ function EventDetailView() {
           <span>Teilnehmer:</span>
           <span>{amountOfParticipants}</span>
         </p>
-        <button onClick={handleAttendToEvent} >Teilnehmen</button>
+        <button onClick={handleAttendToEvent}>Teilnehmen</button>
         <NavLink to="/">Zurück zum Kalender</NavLink>
       </div>
     </div>

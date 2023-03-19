@@ -5,78 +5,70 @@ import DayView from "../components/DayView";
 import { useContext } from "react";
 import { UserContext } from "../App";
 
-import * as eventProvider from '../service/eventProvider'
-import { userStatus } from '../service/checkStatus.js'
+import * as eventProvider from "../service/eventProvider";
+import { userStatus } from "../service/checkStatus.js";
 import { useLocation } from "react-router-dom";
 
 const Home = () => {
   let location = useLocation();
-  let status = useContext(UserContext)
+  let status = useContext(UserContext);
 
-  const [verifiedUser, setVerifiedUser] = useState(status.success)
+  const [verifiedUser, setVerifiedUser] = useState(status.success);
 
   const [dateList, setDateList] = useState([]);
-  const [allEvents, setAllEvents] = useState([])
-  const [dayEvents, setDayEvents] = useState([])
+  const [allEvents, setAllEvents] = useState([]);
+  const [dayEvents, setDayEvents] = useState([]);
 
   const [value, onChange] = useState(new Date());
-  const [showDay, setShowDay] = useState(false)
+  const [showDay, setShowDay] = useState(false);
 
-
-  
-
-  useEffect(()=> {
-
-
-
+  useEffect(() => {
     const fetchStatus = async () => {
-        let newStatus = await userStatus()
-        setVerifiedUser(newStatus.success)
-
-    }
-    fetchStatus()
-        .catch(console.error);
-  
-
+      let newStatus = await userStatus();
+      setVerifiedUser(newStatus.success);
+    };
+    fetchStatus().catch(console.error);
 
     if (true) {
-    console.log("🚀 ~ file: Home.js:43 ~ useEffect ~ verifiedUser:", verifiedUser)
+      console.log(
+        "🚀 ~ file: Home.js:43 ~ useEffect ~ verifiedUser:",
+        verifiedUser
+      );
 
-    const fetchData = async () => {
+      const fetchData = async () => {
         const data = await eventProvider.getAllEvents();
-        console.log("🚀 ~ file: Home.js:46 ~ fetchData ~ data:", data)
-        setAllEvents(data)
-  
-        let eventDates = data.map(event => {
-            let day = event.beginning.split('T')[0];
-            let date = new Date(day);
-            date.setDate(date.getDate() - 1)
-            return date;
+        console.log("🚀 ~ file: Home.js:46 ~ fetchData ~ data:", data);
+        setAllEvents(data);
+
+        let eventDates = data.map((event) => {
+          let day = event.beginning.split("T")[0];
+          let date = new Date(day);
+          date.setDate(date.getDate() - 1);
+          return date;
         });
-        setDateList(eventDates)
+        setDateList(eventDates);
+      };
+      fetchData().catch(console.error);
     }
-    fetchData()
-        .catch(console.error);
-    }
-
-  },[])
-
+  }, []);
 
   useEffect(() => {
     let dayEvents = allEvents.filter((event) => {
-        return new Date(event.beginning).toDateString() === value.toDateString();
+      return new Date(event.beginning).toDateString() === value.toDateString();
     });
-    setDayEvents(dayEvents)
-  },[value]);
+    setDayEvents(dayEvents);
+  }, [value]);
 
-const tileContent = ({ date, view }) => {
-    if (view === 'month') {
-        const dateString = date.toISOString().split('T')[0];
-        const isMarked = dateList.find((d) => d.toISOString().split('T')[0] === dateString);
-        return isMarked ? <div className="marked">{""}</div> : null;
+  const tileContent = ({ date, view }) => {
+    if (view === "month") {
+      const dateString = date.toISOString().split("T")[0];
+      const isMarked = dateList.find(
+        (d) => d.toISOString().split("T")[0] === dateString
+      );
+      return isMarked ? <div className="marked">{""}</div> : null;
     }
     return null;
-};
+  };
 
   const popUpOpen = () => {
     setShowDay(true);
@@ -85,24 +77,40 @@ const tileContent = ({ date, view }) => {
     setShowDay(false);
   };
 
-  let showDayView = (showDay)
+  let showDayView = showDay;
 
-// let dayView = dayEvents.map(events => {
-//     return <DayView key={dayEvents._id} data={events} closeViewCallback={popUpClose}/>
-// })
+  // let dayView = dayEvents.map(events => {
+  //     return <DayView key={dayEvents._id} data={events} closeViewCallback={popUpClose}/>
+  // })
 
-return (
-    <div>
+  return (
+    <div className="home">
       <h2>Kalender</h2>
       <div className="kalender">
-        <Calendar onClickDay={popUpOpen} tileContent={tileContent} onChange={onChange} value={value} />
+        <Calendar
+          onClickDay={popUpOpen}
+          tileContent={tileContent}
+          onChange={onChange}
+          value={value}
+        />
       </div>
-      {(showDayView ) && (
+      {showDayView && (
         <div className="day">
-            {/* {dayView} */}
-          <DayView events={dayEvents} /><button onClick={popUpClose}>X</button>
+          {/* {dayView} */}
+          <DayView events={dayEvents} />
+          <button onClick={popUpClose}>X</button>
         </div>
       )}
+      <div className="kalender-infos">
+        <p>
+          <div className="punkt blau"></div>
+          mindestens 1 Event findet an diesem Tag statt!
+        </p>
+        <p>
+          <div className="punkt rot"></div>
+          mindestens 1 Event, an dem du teilnimmst, findet an diesem Tag statt!
+        </p>
+      </div>
     </div>
   );
 };
