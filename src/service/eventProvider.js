@@ -15,3 +15,20 @@ export async function getAllEvents(){
     }
 
 }
+
+
+export async function getEventById(id){
+
+    try {
+        let response = await axios.get(`http://localhost:8080/auth/eventdetails/${id}`,{
+            withCredentials: true
+        });
+        console.log("🚀 ~ file: eventProvider.js:25 ~ getEventById ~ response:", response)
+
+        return response.data;
+    } catch (error) {
+        console.log(error)
+        
+    }
+
+}

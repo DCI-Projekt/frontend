@@ -19,19 +19,17 @@ const Header = () => {
     } else setShow(!show);
   };
 
-  let isAdmin = status.message === "admin";
-  let createEvent = isAdmin ? (
-    <NavLink to="/erstellen">
-      <li onClick={handleSth}>Event erstellen</li>
-    </NavLink>
-  ) : (
-    ""
-  );
+let isAdmin = status.message === "admin";
+let createEvent = isAdmin ? 
+(<NavLink to="/erstellen">
+    <li onClick={handleSth}>Event erstellen</li>
+  </NavLink>
+) : "";
 
-  let showHomeNav = isNotHome ? 
-  (<NavLink to="/">
-    <li onClick={handleSth}>Home</li>
-  </NavLink>) : '';
+let showHomeNav = isNotHome ? 
+(<NavLink to="/">
+  <li onClick={handleSth}>Home</li>
+</NavLink>) : '';
 
 let showLoginPath = isNotLogin ? 
 (<NavLink to="/login">

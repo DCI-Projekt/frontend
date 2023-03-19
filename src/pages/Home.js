@@ -31,7 +31,6 @@ const Home = () => {
 
     const fetchStatus = async () => {
         let newStatus = await userStatus()
-        console.log("🚀 ~ file: Home.js:36 ~ fetchStatus ~ newStatus:", newStatus)
         setVerifiedUser(newStatus.success)
 
     }
@@ -40,10 +39,12 @@ const Home = () => {
   
 
 
-    if (verifiedUser) {
+    if (true) {
+    console.log("🚀 ~ file: Home.js:43 ~ useEffect ~ verifiedUser:", verifiedUser)
 
     const fetchData = async () => {
         const data = await eventProvider.getAllEvents();
+        console.log("🚀 ~ file: Home.js:46 ~ fetchData ~ data:", data)
         setAllEvents(data)
   
         let eventDates = data.map(event => {
