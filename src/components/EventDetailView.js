@@ -13,6 +13,7 @@ function EventDetailView(){
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
     const [participants, setParticipants] = useState([]);
+    const [amountOfParticipants, setAmountOfParticipants] = useState('');
 
     useEffect(() => {
         (async function(){
@@ -24,12 +25,18 @@ function EventDetailView(){
             setDescription(event.description);
             setLocation(event.location);
             setParticipants(event.participants);
+            setAmountOfParticipants(event.participants.length)
 
         }());
     },[id]);
     
     return(
-        <><h1>Hallo</h1></>
+        <>
+            <button>Teilnehmen</button>
+        
+            <h1>Hallo</h1>
+        
+        </>
     );
 }
     
