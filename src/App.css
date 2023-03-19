@@ -214,6 +214,51 @@ textarea {
   cursor: pointer;
 }
 
+.event-title {
+  font-weight: 100;
+  padding: 1rem;
+  border-bottom: 1.5px solid rgb(255, 255, 255);
+}
+
+.event-title:hover {
+  cursor: pointer;
+  color: #6a7efc;
+}
+
+.detail-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-view h2 {
+  font-size: 2rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 4rem;
+  width: 100%;
+  min-width: 400px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.details button {
+  width: fit-content;
+  margin-bottom: 3rem;
+  padding: .5rem;
+}
+
+.details p {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #edf2f6;
+  padding-bottom: 5px;
+}
+
 /* kalender style ------------------------------------------------------------ */
 
 .react-calendar {
@@ -229,6 +274,7 @@ textarea {
   min-height: 350px;
   max-height: 600px;
   height: 100%;
+  padding: 1.5rem;
 }
 .react-calendar--doubleView {
   width: 700px;

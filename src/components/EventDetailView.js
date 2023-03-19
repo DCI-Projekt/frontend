@@ -1,43 +1,68 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { getEventById } from "../service/eventProvider";
 
+function EventDetailView() {
+  const { id } = useParams();
 
-function EventDetailView(){
+  const [title, setTitle] = useState("");
+  const [beginning, setBeginning] = useState("");
+  const [duration, setDuration] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [participants, setParticipants] = useState([]);
+  const [amountOfParticipants, setAmountOfParticipants] = useState("");
 
-    const { id } = useParams();
+  useEffect(() => {
+    (async function () {
+      let event = await getEventById(id);
+      console.log(event);
 
-    const [title, setTitle] = useState('');
-    const [beginning, setBeginning] = useState('');
-    const [duration, setDuration] = useState('');
-    const [description, setDescription] = useState('');
-    const [location, setLocation] = useState('');
-    const [participants, setParticipants] = useState([]);
-    const [amountOfParticipants, setAmountOfParticipants] = useState('');
+      setTitle(event.title);
+      setBeginning(event.beginning);
+      setDuration(event.duration);
+      setDescription(event.description);
+      setLocation(event.location);
+      setParticipants(event.participants);
+      setAmountOfParticipants(event.participants.length);
+    })();
+  }, [id]);
 
-    useEffect(() => {
-        (async function(){
-            let event = await getEventById(id);
-            
-            setTitle(event.title);
-            setBeginning(event.beginning);
-            setDuration(event.duration);
-            setDescription(event.description);
-            setLocation(event.location);
-            setParticipants(event.participants);
-            setAmountOfParticipants(event.participants.length)
-
-        }());
-    },[id]);
-    
-    return(
-        <>
-            <button>Teilnehmen</button>
-        
-            <h1>Hallo</h1>
-        
-        </>
-    );
+  return (
+    <div className="detail-view">
+      <h2>{title}</h2>
+      <div className="details">
+        <p>
+          <span>Datum:</span>
+          <span>
+            {beginning.slice(8, 10)}.{beginning.slice(5, 7)}.
+            {beginning.slice(0, 4)}
+          </span>
+        </p>
+        <p>
+          <span>Dauer:</span>
+          <span>{duration}h</span>
+        </p>
+        <p>
+          Eventbeschreibung: <br />
+          <br />
+          {description}
+        </p>
+        <p>
+          Veranstaltungsort:
+          <br />
+          <br />
+          {location}
+        </p>
+        <p>
+          <span>Teilnehmer:</span>
+          <span>{amountOfParticipants}</span>
+        </p>
+        <button>Teilnehmen</button>
+        <NavLink to="/">Zurück zum Kalender</NavLink>
+      </div>
+    </div>
+  );
 }
-    
+
 export default EventDetailView;
