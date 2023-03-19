@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
-import { getEventById, attendToEvent } from "../service/eventProvider";
+import { NavLink, useLocation, useParams } from "react-router-dom";
+import { getEventById, attendToEvent, cancelUserEvent } from "../service/eventProvider";
 
 
 function EventDetailView() {
   const { id } = useParams();
+  const lock = useLocation();
+
+  const [isAttending, setIsAttending] = useState(lock.state.isAttending)
 
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
@@ -17,7 +20,6 @@ function EventDetailView() {
   useEffect(() => {
     (async function () {
       let event = await getEventById(id);
-      console.log(event);
 
       setTitle(event.title);
       setDate(event.beginning);
@@ -28,11 +30,17 @@ function EventDetailView() {
       setAmountOfParticipants(event.participants.length);
 
     })();
-  }, [id]);
+  }, [id, isAttending]);
 
   const handleAttendToEvent = async ()=>{
     let response = await attendToEvent(id);
-    console.log("🚀 ~ file: EventDetailView.js:36 ~ handleAttendToEvent ~ response:", response)
+    setIsAttending(response.success)
+  }
+
+  
+  const handleCancelEvent = async ()=>{
+    let response = await cancelUserEvent(id);
+    setIsAttending(!response.success)
   }
 
   return (
@@ -68,7 +76,7 @@ function EventDetailView() {
           <span>Teilnehmer:</span>
           <span>{amountOfParticipants}</span>
         </p>
-        <button onClick={handleAttendToEvent}>Teilnehmen</button>
+        {isAttending ? <button onClick={handleCancelEvent}>Absagen</button> : <button onClick={handleAttendToEvent}>Teilnehmen</button>}
         <NavLink to="/">Zurück zum Kalender</NavLink>
       </div>
     </div>

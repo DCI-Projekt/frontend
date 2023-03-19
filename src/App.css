@@ -220,6 +220,10 @@ textarea {
   border-bottom: 1.5px solid rgb(255, 255, 255);
 }
 
+.userAttends{
+  color: red;
+}
+
 .event-title:hover {
   cursor: pointer;
   color: #6a7efc;
@@ -465,6 +469,16 @@ textarea {
   height: 10px;
   border-radius: 50%;
   background: #006edc;
+  color: 006edc;
+}
+
+.markAttending {
+  margin: auto;
+
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: red;
   color: 006edc;
 }
 .react-calendar--selectRange .react-calendar__tile--hover {

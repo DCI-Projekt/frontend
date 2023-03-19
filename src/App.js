@@ -18,7 +18,6 @@ function App() {
     useEffect(()=> {
         const fetchStatus = async () => {
             const roleObj = await status.userStatus();
-            console.log(roleObj);
             setUserStatus(roleObj)
         /* 
         1. Fall nicht registriert: {success: false, message: 'Token missing'}

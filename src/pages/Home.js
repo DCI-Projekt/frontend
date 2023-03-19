@@ -7,13 +7,15 @@ import { UserContext } from "../App";
 
 import * as eventProvider from "../service/eventProvider";
 import { userStatus } from "../service/checkStatus.js";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 const Home = () => {
-  let location = useLocation();
   let status = useContext(UserContext);
 
   const [verifiedUser, setVerifiedUser] = useState(status.success);
+  const [userEvents, setUserEvents] = useState([]);
+  const [userEventDates, setUserEventsDates] = useState([])
+
 
   const [dateList, setDateList] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
@@ -23,34 +25,46 @@ const Home = () => {
   const [showDay, setShowDay] = useState(false);
 
   useEffect(() => {
+    //!Prüfe Role des Users
     const fetchStatus = async () => {
       let newStatus = await userStatus();
       setVerifiedUser(newStatus.success);
     };
     fetchStatus().catch(console.error);
+    //!Hole Events des eingeloggten Users
+    const fetchUserEvents = async () => {
+      let userEvents = await eventProvider.getUserEventsByTokenId();
+      setUserEvents(userEvents);
 
-    if (true) {
-      console.log(
-        "🚀 ~ file: Home.js:43 ~ useEffect ~ verifiedUser:",
-        verifiedUser
-      );
-
-      const fetchData = async () => {
-        const data = await eventProvider.getAllEvents();
-        console.log("🚀 ~ file: Home.js:46 ~ fetchData ~ data:", data);
-        setAllEvents(data);
-
-        let eventDates = data.map((event) => {
+      let userEventDates = []
+      if(userEvents.length > 0){
+        userEventDates = userEvents.map((event) => {
           let day = event.beginning.split("T")[0];
           let date = new Date(day);
           date.setDate(date.getDate() - 1);
           return date;
         });
-        setDateList(eventDates);
-      };
-      fetchData().catch(console.error);
-    }
-  }, []);
+      }
+
+      setUserEventsDates(userEventDates);
+    };
+    fetchUserEvents().catch(console.error);
+    //!Hole Eventvorschau und extrahiere deren Datum/Start
+    const fetchData = async () => {
+      const data = await eventProvider.getEventPreview();
+      setAllEvents(data);
+
+      let eventDates = data.map((event) => {
+        let day = event.beginning.split("T")[0];
+        let date = new Date(day);
+        date.setDate(date.getDate() - 1);
+        return date;
+      });
+      setDateList(eventDates);
+    };
+    fetchData().catch(console.error);
+    
+  }, [status]);
 
   useEffect(() => {
     let dayEvents = allEvents.filter((event) => {
@@ -65,10 +79,21 @@ const Home = () => {
       const isMarked = dateList.find(
         (d) => d.toISOString().split("T")[0] === dateString
       );
+
+      const isAttending = userEventDates.find(
+        (d) => d.toISOString().split("T")[0] === dateString
+      );
+
+      if(isAttending) {
+        return <div className="markAttending">{""}</div>
+      }
+
       return isMarked ? <div className="marked">{""}</div> : null;
     }
     return null;
   };
+
+  
 
   const popUpOpen = () => {
     setShowDay(true);
@@ -76,12 +101,6 @@ const Home = () => {
   const popUpClose = () => {
     setShowDay(false);
   };
-
-  let showDayView = showDay;
-
-  // let dayView = dayEvents.map(events => {
-  //     return <DayView key={dayEvents._id} data={events} closeViewCallback={popUpClose}/>
-  // })
 
   return (
     <div className="home">
@@ -94,10 +113,10 @@ const Home = () => {
           value={value}
         />
       </div>
-      {showDayView && (
+      {showDay && (
         <div className="day">
           {/* {dayView} */}
-          <DayView events={dayEvents} />
+          <DayView events={dayEvents} userEvents={userEvents} verifiedUser={verifiedUser}/>
           <button onClick={popUpClose}>X</button>
         </div>
       )}
