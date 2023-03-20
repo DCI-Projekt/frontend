@@ -122,11 +122,11 @@ const Home = () => {
       )}
       <div className="kalender-infos">
         <p>
-          <div className="punkt blau"></div>
+          <span className="punkt blau"></span>
           mindestens 1 Event findet an diesem Tag statt!
         </p>
         <p>
-          <div className="punkt rot"></div>
+          <span className="punkt rot"></span>
           mindestens 1 Event, an dem du teilnimmst, findet an diesem Tag statt!
         </p>
       </div>

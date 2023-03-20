@@ -34,7 +34,7 @@ const Header = () => {
 
   const handleLogout = async (e) => {
     let response = await userLogout();
-    let test = await  userStatus()
+    await  userStatus()
     setCanLogout(!response.success)
 
     setChange(!checkStatus)
